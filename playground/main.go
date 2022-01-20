@@ -48,4 +48,19 @@ func main() {
 
 	// TODO: right way to exit only after all goroutines are done?
 	time.Sleep(time.Millisecond * 100)
+
+	ch := make(chan int, 1)
+	sendStuff(ch)
+	select {
+	case val := <-ch:
+		fmt.Println("Received from channel:", val)
+	case <-time.After(time.Millisecond * 100):
+		fmt.Println("Timed out waiting for receive")
+		// default: // uncomment this to cause default case to execute, assuming no value was sent to channel
+		// 	fmt.Println("Default cause because all others are blocked")
+	}
+}
+
+func sendStuff(c chan<- int) {
+	// c <- 0 // uncomment this to prevent the timeout
 }
