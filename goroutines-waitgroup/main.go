@@ -18,12 +18,12 @@ func main() {
 	wg.Add(2)
 
 	go func() {
-		go repeat("hello")
+		repeat("hello")
 		wg.Done()
 	}()
 
 	go func() {
-		go repeat("hi")
+		repeat("hi")
 		wg.Done()
 	}()
 
